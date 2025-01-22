@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>$GTAI</title>
+    <link rel="icon" href="static/images/ginger.jpg" type="image/jpeg">
+    <style>
+        @font-face {
+            font-family: 'Duck';
+            src: url('static/fonts/Duck.otf') format('opentype');
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Duck', sans-serif;
+            background-color: #1a1a1a;
+            color: white;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-top: 50px;
+        }
+
+        img {
+            margin-top: 20px;
+            width: 150px;
+            height: auto;
+        }
+
+        .button-container {
+            margin-top: 40px;
+        }
+
+        .groq-button {
+            background: url('static/images/ginger.png') no-repeat center;
+            background-size: contain;
+            width: 150px;
+            height: 150px;
+            border: none;
+            cursor: pointer;
+            animation: wiggle 2s infinite;
+        }
+
+        .groq-button:hover {
+            filter: brightness(1.2);
+        }
+
+        .groq-button:active {
+            animation: dance 0.5s;
+        }
+
+        .neon {
+            position: relative;
+            display: inline-block;
+            border-radius: 50%;
+        }
+
+        .neon:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 0, 0, 0.5), rgba(255, 255, 0, 0.2));
+            filter: blur(10px);
+            animation: neonGlow 2s infinite alternate;
+        }
+
+        @keyframes neonGlow {
+            from {
+                opacity: 0.8;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes wiggle {
+            0%, 100% {
+                transform: rotate(-5deg);
+            }
+            50% {
+                transform: rotate(5deg);
+            }
+        }
+
+        @keyframes dance {
+            0%, 100% {
+                transform: scale(1) translateY(0);
+            }
+            50% {
+                transform: scale(1.1) translateY(-10px);
+            }
+        }
+
+        .links {
+            margin-top: 50px;
+        }
+
+        .links a {
+            color: cyan;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 1.2em;
+        }
+
+        .links a:hover {
+            text-decoration: underline;
+        }
+
+        #output {
+            margin-top: 30px;
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+<body>
+    <h1>Ginger Trump AI</h1>
+    <img src="static/images/ginger.jpg" alt="Ginger Trump AI">
+    <div class="button-container">
+        <div class="neon">
+            <button class="groq-button" onclick="fetchGroqOutput()"></button>
+        </div>
+    </div>
+    <div id="output"></div>
+    <div class="links">
+        <a href="https://example.com/x" target="_blank">X</a>
+        <a href="https://example.com/tg" target="_blank">Telegram</a>
+    </div>
+
+    <script>
+        async function fetchGroqOutput() {
+            try {
+                const response = await fetch('/random_joke');
+                const data = await response.json();
+
+                if (data.joke) {
+                    document.getElementById('output').textContent = data.joke;
+                } else {
+                    document.getElementById('output').textContent = "Error: Could not fetch joke.";
+                }
+            } catch (error) {
+                document.getElementById('output').textContent = "Error: An unexpected error occurred.";
+            }
+        }
+    </script>
+</body>
+</html>
